@@ -1,8 +1,6 @@
 -- Create script BE-opdracht 01 - Magazijn Jamin
 -- MySQL / MariaDB
 
-DROP DATABASE IF EXISTS `jamin`; 
-CREATE DATABASE `jamin` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `jamin`;
 
 -- ============================================================

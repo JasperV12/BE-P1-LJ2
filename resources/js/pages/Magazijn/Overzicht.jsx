@@ -96,11 +96,31 @@ export default function Overzicht({ magazijnItems }) {
                                                 >
                                                     {item.heeftAllergenen ? (
                                                         <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50">
-                                                            ✗
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2"
+                                                                className="h-4 w-4"
+                                                                aria-hidden="true"
+                                                            >
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+                                                            </svg>
                                                         </span>
                                                     ) : (
                                                         <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50">
-                                                            ✓
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2"
+                                                                className="h-4 w-4"
+                                                                aria-hidden="true"
+                                                            >
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12l4 4L19 6" />
+                                                            </svg>
                                                         </span>
                                                     )}
                                                 </Link>
