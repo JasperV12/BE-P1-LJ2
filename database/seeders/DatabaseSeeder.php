@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use RuntimeException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +19,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        DB::unprepared(file_get_contents(database_path('create_script.sql')));
+        $sql = file_get_contents(database_path('create_script.sql'));
+
+        if ($sql === false) {
+            throw new RuntimeException('Unable to read database/create_script.sql.');
+        }
+
+        $result = DB::connection()->getPdo()->exec($sql);
+
+        if ($result === false) {
+            throw new RuntimeException('Unable to execute database/create_script.sql.');
+        }
 
         User::factory()->create([
             'name' => 'Test User',

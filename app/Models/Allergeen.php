@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $Id
  * @property string $Naam
  * @property string|null $Omschrijving
- * @property-read BelongsToMany<Product, $this, ProductPerAllergeen, 'pivot'> $producten
+ * @property-read Collection<int, Product> $producten
  */
 class Allergeen extends Model
 {
@@ -28,6 +29,7 @@ class Allergeen extends Model
     /** @return BelongsToMany<Product, $this, ProductPerAllergeen, 'pivot'> */
     public function producten(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'ProductPerAllergeen', 'AllergeenId', 'ProductId');
+        return $this->belongsToMany(Product::class, 'ProductPerAllergeen', 'AllergeenId', 'ProductId')
+            ->using(ProductPerAllergeen::class);
     }
 }

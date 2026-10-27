@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @property int $Id
  * @property int $ProductId
  * @property int $AllergeenId
- * @property-read BelongsTo<Product, $this> $product
- * @property-read BelongsTo<Allergeen, $this> $allergeen
+ * @property-read Product $product
+ * @property-read Allergeen $allergeen
  */
-class ProductPerAllergeen extends Model
+class ProductPerAllergeen extends Pivot
 {
     protected $table = 'ProductPerAllergeen';
 

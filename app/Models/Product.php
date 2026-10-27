@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $Naam
  * @property string|null $Barcode
  * @property-read HasOne<Magazijn, $this> $magazijn
- * @property-read BelongsToMany<Allergeen, $this, ProductPerAllergeen, 'pivot'> $allergenen
- * @property-read HasMany<ProductPerAllergeen, $this> $productPerAllergenen
- * @property-read HasMany<ProductPerLeverancier, $this> $productPerLeveranciers
+ * @property-read Collection<int, Allergeen> $allergenen
+ * @property-read Collection<int, ProductPerAllergeen> $productPerAllergenen
+ * @property-read Collection<int, ProductPerLeverancier> $productPerLeveranciers
  */
 class Product extends Model
 {
@@ -39,7 +40,8 @@ class Product extends Model
     /** @return BelongsToMany<Allergeen, $this, ProductPerAllergeen, 'pivot'> */
     public function allergenen(): BelongsToMany
     {
-        return $this->belongsToMany(Allergeen::class, 'ProductPerAllergeen', 'ProductId', 'AllergeenId');
+        return $this->belongsToMany(Allergeen::class, 'ProductPerAllergeen', 'ProductId', 'AllergeenId')
+            ->using(ProductPerAllergeen::class);
     }
 
     /** @return HasMany<ProductPerAllergeen, $this> */
