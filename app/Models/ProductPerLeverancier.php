@@ -13,8 +13,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $DatumLevering
  * @property int $Aantal
  * @property Carbon|null $DatumEerstVolgendeLevering
- * @property-read BelongsTo<Leverancier, $this> $leverancier
- * @property-read BelongsTo<Product, $this> $product
+ * @property-read Leverancier $leverancier
+ * @property-read Product $product
  */
 class ProductPerLeverancier extends Model
 {

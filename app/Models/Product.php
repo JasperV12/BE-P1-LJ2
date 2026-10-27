@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $Naam
  * @property string|null $Barcode
  * @property-read HasOne<Magazijn, $this> $magazijn
- * @property-read BelongsToMany<Allergeen, $this, ProductPerAllergeen, 'pivot'> $allergenen
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Allergeen> $allergenen
  * @property-read HasMany<ProductPerAllergeen, $this> $productPerAllergenen
  * @property-read HasMany<ProductPerLeverancier, $this> $productPerLeveranciers
  */
@@ -36,7 +36,7 @@ class Product extends Model
         return $this->hasOne(Magazijn::class, 'ProductId', 'Id');
     }
 
-    /** @return BelongsToMany<Allergeen, $this, ProductPerAllergeen, 'pivot'> */
+    /** @return BelongsToMany<Allergeen, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'> */
     public function allergenen(): BelongsToMany
     {
         return $this->belongsToMany(Allergeen::class, 'ProductPerAllergeen', 'ProductId', 'AllergeenId');

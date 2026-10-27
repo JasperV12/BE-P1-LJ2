@@ -18,7 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        DB::unprepared(file_get_contents(database_path('create_script.sql')));
+        $createScript = file_get_contents(database_path('create_script.sql'));
+
+        if ($createScript === false) {
+            throw new \RuntimeException('Unable to read create_script.sql');
+        }
+
+        DB::unprepared($createScript);
 
         User::factory()->create([
             'name' => 'Test User',

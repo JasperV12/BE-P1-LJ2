@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Magazijn;
 use App\Models\Product;
+use App\Models\Allergeen;
 use App\Models\ProductPerLeverancier;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -15,7 +16,7 @@ class MagazijnController extends Controller
     {
         $magazijnItems = Magazijn::with(['product.productPerAllergenen'])
             ->get()
-            ->map(function ($item) {
+            ->map(function (Magazijn $item): array {
                 return [
                     'id' => $item->Id,
                     'productId' => $item->ProductId,
@@ -50,7 +51,7 @@ class MagazijnController extends Controller
             ->with('product')
             ->orderBy('DatumLevering', 'asc')
             ->get()
-            ->map(function ($levering) {
+            ->map(function (ProductPerLeverancier $levering): array {
                 return [
                     'id' => $levering->Id,
                     'naamProduct' => $levering->product->Naam,
@@ -82,7 +83,7 @@ class MagazijnController extends Controller
         $allergenen = $product->allergenen
             ->sortBy('Naam')
             ->values()
-            ->map(function ($allergeen) {
+            ->map(function (Allergeen $allergeen): array {
                 return [
                     'id' => $allergeen->Id,
                     'naam' => $allergeen->Naam,
