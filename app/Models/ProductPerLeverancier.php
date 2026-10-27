@@ -3,13 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $Id
+ * @property int $ProductId
+ * @property int $LeverancierId
+ * @property Carbon|null $DatumLevering
+ * @property int $Aantal
+ * @property Carbon|null $DatumEerstVolgendeLevering
+ * @property-read BelongsTo<Leverancier, $this> $leverancier
+ * @property-read BelongsTo<Product, $this> $product
+ */
 class ProductPerLeverancier extends Model
 {
     protected $table = 'ProductPerLeverancier';
+
     protected $primaryKey = 'Id';
 
     const CREATED_AT = 'DatumAangemaakt';
+
     const UPDATED_AT = 'DatumGewijzigd';
 
     protected $casts = [
@@ -18,12 +32,14 @@ class ProductPerLeverancier extends Model
         'DatumEerstVolgendeLevering' => 'date',
     ];
 
-    public function leverancier()
+    /** @return BelongsTo<Leverancier, $this> */
+    public function leverancier(): BelongsTo
     {
         return $this->belongsTo(Leverancier::class, 'LeverancierId', 'Id');
     }
 
-    public function product()
+    /** @return BelongsTo<Product, $this> */
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'ProductId', 'Id');
     }
