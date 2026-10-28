@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LeverancierController;
 use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -24,9 +25,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Opdracht 01: Magazijn
     Route::get('/magazijn', [MagazijnController::class, 'index'])->name('magazijn.index');
     Route::get('/magazijn/leveringsinfo/{productId}', [MagazijnController::class, 'leveringsInfo'])->name('magazijn.leveringsinfo');
     Route::get('/magazijn/allergeeninfo/{productId}', [MagazijnController::class, 'allergeenInfo'])->name('magazijn.allergeeninfo');
+
+    // Opdracht 02: Leveranciers
+    Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
+    Route::get('/leveranciers/{leverancierId}/producten', [LeverancierController::class, 'geleverdeProducten'])->name('leveranciers.producten');
+    Route::get('/leveranciers/{leverancierId}/producten/{productId}/levering', [LeverancierController::class, 'leveringProductForm'])->name('leveranciers.levering.create');
+    Route::post('/leveranciers/{leverancierId}/producten/{productId}/levering', [LeverancierController::class, 'storeLevering'])->name('leveranciers.levering.store');
 });
 
 require __DIR__.'/auth.php';
