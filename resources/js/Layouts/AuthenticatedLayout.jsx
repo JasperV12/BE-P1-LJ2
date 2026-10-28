@@ -34,7 +34,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                     href={route('magazijn.index')}
                                     active={route().current('magazijn.*')}
                                 >
-                                    Magazijn
+                                    Overzicht Producten
+                                </NavLink>
+                                <NavLink
+                                    href={route('leveranciers.index')}
+                                    active={route().current('leveranciers.*')}
+                                >
+                                    Overzicht Leveranciers
                                 </NavLink>
                             </div>
                         </div>
@@ -144,7 +150,13 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('magazijn.index')}
                             active={route().current('magazijn.*')}
                         >
-                            Magazijn
+                            Overzicht Producten
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('leveranciers.index')}
+                            active={route().current('leveranciers.*')}
+                        >
+                            Overzicht Leveranciers
                         </ResponsiveNavLink>
                     </div>
 
