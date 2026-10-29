@@ -21,7 +21,12 @@ export default function LeveringProduct({ details }) {
                 setCountdown((prev) => {
                     if (prev <= 1) {
                         clearInterval(timer);
-                        router.visit(route('leveranciers.producten', details.leverancierId));
+                        router.visit(
+                            route(
+                                'leveranciers.producten',
+                                details.leverancierId,
+                            ),
+                        );
                         return 0;
                     }
                     return prev - 1;
@@ -34,7 +39,12 @@ export default function LeveringProduct({ details }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('leveranciers.levering.store', [details.leverancierId, details.productId]));
+        post(
+            route('leveranciers.levering.store', [
+                details.leverancierId,
+                details.productId,
+            ]),
+        );
     };
 
     return (
@@ -46,7 +56,8 @@ export default function LeveringProduct({ details }) {
                     </h2>
                     {errorMessage && (
                         <span className="text-sm font-medium text-red-600 dark:text-red-400">
-                            Doorsturen naar geleverde producten in {countdown}s...
+                            Doorsturen naar geleverde producten in {countdown}
+                            s...
                         </span>
                     )}
                 </div>
@@ -80,7 +91,9 @@ export default function LeveringProduct({ details }) {
                                         {errorMessage}
                                     </p>
                                     <p className="mt-1 text-xs text-red-700 dark:text-red-300">
-                                        Je wordt over {countdown} seconden automatisch doorgestuurd naar het overzicht scherm Geleverde producten.
+                                        Je wordt over {countdown} seconden
+                                        automatisch doorgestuurd naar het
+                                        overzicht scherm Geleverde producten.
                                     </p>
                                 </div>
                             </div>
@@ -126,7 +139,10 @@ export default function LeveringProduct({ details }) {
                             </dl>
 
                             {/* Invoerformulier conform Wireframe-04 */}
-                            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                            <form
+                                onSubmit={handleSubmit}
+                                className="mt-8 space-y-6"
+                            >
                                 <div>
                                     <label
                                         htmlFor="aantal"
@@ -142,7 +158,12 @@ export default function LeveringProduct({ details }) {
                                             min="1"
                                             required
                                             value={data.aantal}
-                                            onChange={(e) => setData('aantal', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'aantal',
+                                                    e.target.value,
+                                                )
+                                            }
                                             placeholder="Bijv. 25"
                                             className="block w-full max-w-md rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                                         />
@@ -161,14 +182,19 @@ export default function LeveringProduct({ details }) {
                                     >
                                         Datum eerstvolgende levering
                                     </label>
-                                    <div className="mt-1 relative max-w-md">
+                                    <div className="relative mt-1 max-w-md">
                                         <input
                                             id="datumEerstVolgendeLevering"
                                             name="datumEerstVolgendeLevering"
                                             type="date"
-                                            value={data.datumEerstVolgendeLevering}
+                                            value={
+                                                data.datumEerstVolgendeLevering
+                                            }
                                             onChange={(e) =>
-                                                setData('datumEerstVolgendeLevering', e.target.value)
+                                                setData(
+                                                    'datumEerstVolgendeLevering',
+                                                    e.target.value,
+                                                )
                                             }
                                             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                                         />
@@ -180,12 +206,12 @@ export default function LeveringProduct({ details }) {
                                     )}
                                 </div>
 
-                                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div className="flex items-center justify-between border-t border-gray-200 pt-4 dark:border-gray-700">
                                     {/* Knop Sla op conform Wireframe-04 */}
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="inline-flex items-center rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+                                        className="inline-flex items-center rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
                                     >
                                         Sla op
                                     </button>
@@ -193,7 +219,10 @@ export default function LeveringProduct({ details }) {
                                     {/* Knoppen Terug en Home conform Wireframe-04 */}
                                     <div className="flex gap-3">
                                         <Link
-                                            href={route('leveranciers.producten', details.leverancierId)}
+                                            href={route(
+                                                'leveranciers.producten',
+                                                details.leverancierId,
+                                            )}
                                             className="inline-flex items-center rounded-md border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                                         >
                                             Terug

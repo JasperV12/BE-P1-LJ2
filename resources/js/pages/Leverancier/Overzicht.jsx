@@ -26,7 +26,11 @@ export default function Overzicht({ leveranciers }) {
     const SortIcon = ({ field }) => {
         if (sortField !== field)
             return <span className="ml-1 text-gray-400">↕</span>;
-        return <span className="ml-1 font-bold text-indigo-600 dark:text-indigo-400">{sortAsc ? '↑' : '↓'}</span>;
+        return (
+            <span className="ml-1 font-bold text-indigo-600 dark:text-indigo-400">
+                {sortAsc ? '↑' : '↓'}
+            </span>
+        );
     };
 
     return (
@@ -49,33 +53,51 @@ export default function Overzicht({ leveranciers }) {
                                         <tr>
                                             <th
                                                 className="cursor-pointer px-6 py-3 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
-                                                onClick={() => handleSort('naam')}
+                                                onClick={() =>
+                                                    handleSort('naam')
+                                                }
                                             >
                                                 Naam <SortIcon field="naam" />
                                             </th>
                                             <th
                                                 className="cursor-pointer px-6 py-3 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
-                                                onClick={() => handleSort('contactPersoon')}
+                                                onClick={() =>
+                                                    handleSort('contactPersoon')
+                                                }
                                             >
-                                                Contactpersoon <SortIcon field="contactPersoon" />
+                                                Contactpersoon{' '}
+                                                <SortIcon field="contactPersoon" />
                                             </th>
                                             <th
                                                 className="cursor-pointer px-6 py-3 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
-                                                onClick={() => handleSort('leverancierNummer')}
+                                                onClick={() =>
+                                                    handleSort(
+                                                        'leverancierNummer',
+                                                    )
+                                                }
                                             >
-                                                Leveranciernummer <SortIcon field="leverancierNummer" />
+                                                Leveranciernummer{' '}
+                                                <SortIcon field="leverancierNummer" />
                                             </th>
                                             <th
                                                 className="cursor-pointer px-6 py-3 text-left text-xs font-semibold tracking-wider text-gray-700 uppercase hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
-                                                onClick={() => handleSort('mobiel')}
+                                                onClick={() =>
+                                                    handleSort('mobiel')
+                                                }
                                             >
-                                                Mobiel <SortIcon field="mobiel" />
+                                                Mobiel{' '}
+                                                <SortIcon field="mobiel" />
                                             </th>
                                             <th
                                                 className="cursor-pointer px-6 py-3 text-center text-xs font-semibold tracking-wider text-gray-700 uppercase hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
-                                                onClick={() => handleSort('aantalVerschillendeProducten')}
+                                                onClick={() =>
+                                                    handleSort(
+                                                        'aantalVerschillendeProducten',
+                                                    )
+                                                }
                                             >
-                                                Aantal verschillende producten <SortIcon field="aantalVerschillendeProducten" />
+                                                Aantal verschillende producten{' '}
+                                                <SortIcon field="aantalVerschillendeProducten" />
                                             </th>
                                             <th className="px-6 py-3 text-center text-xs font-semibold tracking-wider text-gray-700 uppercase dark:text-gray-200">
                                                 Toon producten
@@ -86,7 +108,7 @@ export default function Overzicht({ leveranciers }) {
                                         {sorted.map((leverancier) => (
                                             <tr
                                                 key={leverancier.id}
-                                                className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-750"
+                                                className="dark:hover:bg-gray-750 transition-colors hover:bg-gray-50"
                                             >
                                                 <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
                                                     {leverancier.naam}
@@ -95,17 +117,24 @@ export default function Overzicht({ leveranciers }) {
                                                     {leverancier.contactPersoon}
                                                 </td>
                                                 <td className="px-6 py-4 font-mono text-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
-                                                    {leverancier.leverancierNummer}
+                                                    {
+                                                        leverancier.leverancierNummer
+                                                    }
                                                 </td>
                                                 <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
                                                     {leverancier.mobiel}
                                                 </td>
                                                 <td className="px-6 py-4 text-center text-sm font-semibold whitespace-nowrap text-gray-900 dark:text-gray-100">
-                                                    {leverancier.aantalVerschillendeProducten}
+                                                    {
+                                                        leverancier.aantalVerschillendeProducten
+                                                    }
                                                 </td>
                                                 <td className="px-6 py-4 text-center whitespace-nowrap">
                                                     <Link
-                                                        href={route('leveranciers.producten', leverancier.id)}
+                                                        href={route(
+                                                            'leveranciers.producten',
+                                                            leverancier.id,
+                                                        )}
                                                         className="inline-flex items-center justify-center rounded-md p-2 text-amber-600 hover:bg-amber-50 hover:text-amber-700 dark:text-amber-400 dark:hover:bg-gray-700"
                                                         title="Toon producten"
                                                     >

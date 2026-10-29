@@ -47,7 +47,7 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                 <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
                     {/* Meldingen */}
                     {flash?.successMessage && (
-                        <div className="rounded-md bg-green-50 p-4 border border-green-200 dark:bg-green-900/30 dark:border-green-800">
+                        <div className="rounded-md border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-900/30">
                             <p className="text-sm font-medium text-green-800 dark:text-green-200">
                                 {flash.successMessage}
                             </p>
@@ -57,12 +57,12 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                     {/* Leveranciergegevens conform Wireframe-02 / Wireframe-03 */}
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6">
-                            <dl className="grid grid-cols-1 gap-y-3 sm:grid-cols-2 sm:gap-x-8 text-base">
+                            <dl className="grid grid-cols-1 gap-y-3 text-base sm:grid-cols-2 sm:gap-x-8">
                                 <div className="flex">
                                     <dt className="w-44 font-medium text-gray-700 dark:text-gray-300">
                                         Naam leverancier
                                     </dt>
-                                    <dd className="text-gray-900 dark:text-gray-100 font-semibold">
+                                    <dd className="font-semibold text-gray-900 dark:text-gray-100">
                                         : {leverancier.naam}
                                     </dd>
                                 </div>
@@ -123,26 +123,36 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                                             producten.map((product) => (
                                                 <tr
                                                     key={product.productId}
-                                                    className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-750"
+                                                    className="dark:hover:bg-gray-750 transition-colors hover:bg-gray-50"
                                                 >
                                                     <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
                                                         {product.naamProduct}
                                                     </td>
-                                                    <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-900 dark:text-gray-100 font-semibold">
-                                                        {product.aantalInMagazijn !== null ? product.aantalInMagazijn : '-'}
+                                                    <td className="px-6 py-4 text-sm font-semibold whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                                        {product.aantalInMagazijn !==
+                                                        null
+                                                            ? product.aantalInMagazijn
+                                                            : '-'}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
-                                                        {product.verpakkingsEenheid !== null ? `${product.verpakkingsEenheid} kg` : '-'}
+                                                        {product.verpakkingsEenheid !==
+                                                        null
+                                                            ? `${product.verpakkingsEenheid} kg`
+                                                            : '-'}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
-                                                        {product.laatsteLevering ?? '-'}
+                                                        {product.laatsteLevering ??
+                                                            '-'}
                                                     </td>
                                                     <td className="px-6 py-4 text-center whitespace-nowrap">
                                                         <Link
-                                                            href={route('leveranciers.levering.create', [
-                                                                leverancier.id,
-                                                                product.productId,
-                                                            ])}
+                                                            href={route(
+                                                                'leveranciers.levering.create',
+                                                                [
+                                                                    leverancier.id,
+                                                                    product.productId,
+                                                                ],
+                                                            )}
                                                             className="inline-flex items-center justify-center rounded-md p-1.5 text-blue-600 hover:bg-blue-50 hover:text-blue-700 dark:text-blue-400 dark:hover:bg-gray-700"
                                                             title="Nieuwe levering toevoegen"
                                                         >
@@ -169,9 +179,11 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                                             <tr>
                                                 <td
                                                     colSpan="5"
-                                                    className="px-6 py-8 text-center text-base font-medium text-gray-600 dark:text-gray-300 italic"
+                                                    className="px-6 py-8 text-center text-base font-medium text-gray-600 italic dark:text-gray-300"
                                                 >
-                                                    Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin
+                                                    Dit bedrijf heeft tot nu toe
+                                                    geen producten geleverd aan
+                                                    Jamin
                                                 </td>
                                             </tr>
                                         )}

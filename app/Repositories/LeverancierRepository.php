@@ -276,7 +276,7 @@ class LeverancierRepository
             $magazijn->save();
         }
 
-        $nieuweLevering = new ProductPerLeverancier();
+        $nieuweLevering = new ProductPerLeverancier;
         $nieuweLevering->LeverancierId = $leverancierId;
         $nieuweLevering->ProductId = $productId;
         $nieuweLevering->DatumLevering = now()->toDateString();
