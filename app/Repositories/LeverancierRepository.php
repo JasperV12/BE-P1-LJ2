@@ -6,6 +6,8 @@ use App\Models\Leverancier;
 use App\Models\Magazijn;
 use App\Models\Product;
 use App\Models\ProductPerLeverancier;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PDO;
 
@@ -79,7 +81,10 @@ class LeverancierRepository
     /**
      * Ophalen van een specifieke leverancier.
      */
-    public function getLeverancierById(int $leverancierId): ?object
+    /**
+     * @return array{Id: int, Naam: string, ContactPersoon: string|null, LeverancierNummer: string|null, Mobiel: string|null}|null
+     */
+    public function getLeverancierById(int $leverancierId): ?array
     {
         try {
             $pdo = $this->getPdo();
@@ -89,13 +94,19 @@ class LeverancierRepository
             $stmt->closeCursor();
 
             if ($leverancier) {
-                return $leverancier;
+                return [
+                    'Id' => (int) $leverancier->Id,
+                    'Naam' => (string) $leverancier->Naam,
+                    'ContactPersoon' => $leverancier->ContactPersoon !== null ? (string) $leverancier->ContactPersoon : null,
+                    'LeverancierNummer' => $leverancier->LeverancierNummer !== null ? (string) $leverancier->LeverancierNummer : null,
+                    'Mobiel' => $leverancier->Mobiel !== null ? (string) $leverancier->Mobiel : null,
+                ];
             }
         } catch (\Throwable $e) {
             // Fallback via Eloquent
             $l = Leverancier::find($leverancierId);
             if ($l) {
-                return (object) [
+                return [
                     'Id' => $l->Id,
                     'Naam' => $l->Naam,
                     'ContactPersoon' => $l->ContactPersoon,
@@ -141,13 +152,17 @@ class LeverancierRepository
                 ->with(['product.magazijn'])
                 ->get()
                 ->groupBy('ProductId')
-                ->map(function ($group) {
+                ->map(function (Collection $group): array {
                     $first = $group->first();
-                    $product = $first->product;
-                    $magazijn = $product?->magazijn;
+                    if (! $first) {
+                        return [];
+                    }
 
-                    $laatsteLeveringDatum = $group->max(function ($item) {
-                        return $item->DatumLevering ? $item->DatumLevering->format('Y-m-d') : null;
+                    $product = $first->product;
+                    $magazijn = $product->magazijn;
+
+                    $laatsteLeveringDatum = $group->max(function (ProductPerLeverancier $item): ?Carbon {
+                        return $item->DatumLevering;
                     });
 
                     return [
@@ -156,7 +171,7 @@ class LeverancierRepository
                         'isActief' => (bool) $product->IsActief,
                         'aantalInMagazijn' => $magazijn?->AantalAanwezig,
                         'verpakkingsEenheid' => $magazijn?->VerpakkingsEenheid ? (float) $magazijn->VerpakkingsEenheid : null,
-                        'laatsteLevering' => $laatsteLeveringDatum ? date('d-m-Y', strtotime($laatsteLeveringDatum)) : null,
+                        'laatsteLevering' => $laatsteLeveringDatum?->format('d-m-Y'),
                     ];
                 })
                 ->sort(function ($a, $b) {
@@ -279,9 +294,11 @@ class LeverancierRepository
         $nieuweLevering = new ProductPerLeverancier;
         $nieuweLevering->LeverancierId = $leverancierId;
         $nieuweLevering->ProductId = $productId;
-        $nieuweLevering->DatumLevering = now()->toDateString();
+        $nieuweLevering->DatumLevering = now();
         $nieuweLevering->Aantal = $aantal;
-        $nieuweLevering->DatumEerstVolgendeLevering = $datumEerstVolgendeLevering;
+        $nieuweLevering->DatumEerstVolgendeLevering = $datumEerstVolgendeLevering
+            ? Carbon::parse($datumEerstVolgendeLevering)
+            : null;
         $nieuweLevering->IsActief = true;
         $nieuweLevering->save();
 

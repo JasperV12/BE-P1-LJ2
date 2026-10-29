@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $DatumLevering
  * @property int $Aantal
  * @property Carbon|null $DatumEerstVolgendeLevering
+ * @property bool $IsActief
  * @property-read Leverancier $leverancier
  * @property-read Product $product
  */

@@ -46,11 +46,11 @@ class LeverancierController extends Controller
 
         return Inertia::render('Leverancier/GeleverdeProducten', [
             'leverancier' => [
-                'id' => (int) $leverancier->Id,
-                'naam' => $leverancier->Naam,
-                'contactPersoon' => $leverancier->ContactPersoon ?? '',
-                'leverancierNummer' => $leverancier->LeverancierNummer ?? '',
-                'mobiel' => $leverancier->Mobiel ?? '',
+                'id' => $leverancier['Id'],
+                'naam' => $leverancier['Naam'],
+                'contactPersoon' => $leverancier['ContactPersoon'] ?? '',
+                'leverancierNummer' => $leverancier['LeverancierNummer'] ?? '',
+                'mobiel' => $leverancier['Mobiel'] ?? '',
             ],
             'producten' => $producten,
         ]);

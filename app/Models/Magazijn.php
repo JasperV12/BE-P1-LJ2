@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $Id
  * @property int $ProductId
  * @property string $VerpakkingsEenheid
- * @property int $AantalAanwezig
+ * @property int|null $AantalAanwezig
+ * @property bool $IsActief
  * @property-read Product $product
  */
 class Magazijn extends Model

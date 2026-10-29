@@ -12,7 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $Id
  * @property string $Naam
  * @property string|null $Barcode
- * @property-read HasOne<Magazijn, $this> $magazijn
+ * @property bool $IsActief
+ * @property-read Magazijn|null $magazijn
  * @property-read Collection<int, Allergeen> $allergenen
  * @property-read Collection<int, ProductPerAllergeen> $productPerAllergenen
  * @property-read Collection<int, ProductPerLeverancier> $productPerLeveranciers
