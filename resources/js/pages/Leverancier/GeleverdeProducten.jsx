@@ -123,7 +123,7 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                                             producten.map((product) => (
                                                 <tr
                                                     key={product.productId}
-                                                    className="dark:hover:bg-gray-750 transition-colors hover:bg-gray-50"
+                                                    className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
                                                 >
                                                     <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-gray-100">
                                                         {product.naamProduct}
@@ -132,7 +132,7 @@ export default function GeleverdeProducten({ leverancier, producten }) {
                                                         {product.aantalInMagazijn !==
                                                         null
                                                             ? product.aantalInMagazijn
-                                                            : '-'}
+                                                            : 0}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-700 dark:text-gray-300">
                                                         {product.verpakkingsEenheid !==
